@@ -21,7 +21,9 @@
     </style>
 </head>
 <body>
-    // レンダリングするためのCanvas
+    <form action="test.html" method="post" enctype="multipart/form-data" >
+        <input type="file" name="test" onchange="previewFile(this);">
+    </form>
     <canvas id="renderCanvas"></canvas>
 
     // Babylon.jsとSceneLoaderの読み込み
