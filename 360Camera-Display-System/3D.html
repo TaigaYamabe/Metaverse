@@ -22,14 +22,16 @@
 </head>
 <body>
 <header id="header">
+    <!-- 
+    actionはindex.phpのWeb アクセス用 URL
+    -->
     <form method="post" action="http://localhost/index.php" enctype="multipart/form-data" id="form">
         <input type="file" name="file1">
         <!-- <input type="button" value="送信" id="submit-button"> -->
-        <button type="button" value="送信" id="submit-button">アップロード</button> 
+        <button type="button" id="submit-button">アップロード</button> 
     </form>
-</header>
     <canvas id="renderCanvas"></canvas>
-
+</header>
     <script>
         const form = document.getElementById("form")
 const submitButton = document.getElementById("submit-button")
