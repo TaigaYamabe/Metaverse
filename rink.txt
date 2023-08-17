@@ -6,5 +6,7 @@ https://note.com/ivan622/n/n04369828c700
 2.ファイルアップロード機能
 https://web-camp.io/magazine/archives/94835
 
+3.submitでページ遷移させない
+https://maaengineerhouse.com/archives/1551
 
 

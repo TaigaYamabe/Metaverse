@@ -19,7 +19,7 @@ function main() {
       //BABYLON.SceneLoader.Append("https://ft-lab.github.io/gltf/apple/", "apple.glb", scene, 
       //Modelsの中にglb形式の3Dモデルをアップロードしファイル名を変更すれば表示される。
       //glb形式のデータはスマホアプリ「Scaniverse」により作成
-      BABYLON.SceneLoader.Append("./Models/", "mouse.glb", scene, 
+      BABYLON.SceneLoader.Append("./Models/", "upload.glb", scene, 
         function (newMeshes) {
         
           const mesh = scene.meshes[0];
