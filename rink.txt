@@ -9,4 +9,7 @@ https://web-camp.io/magazine/archives/94835
 3.submitでページ遷移させない
 https://maaengineerhouse.com/archives/1551
 
+4.MAMPでPHPの動作環境を作成
+https://blanche-toile.com/web/windows-mamp
+
 
