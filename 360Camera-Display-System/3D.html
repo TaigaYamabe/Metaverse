@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,14 +27,14 @@
     actionはindex.phpのWeb アクセス用 URL
     -->
     <form method="post" action="http://localhost/index.php" enctype="multipart/form-data" id="form1">
-        <input type="file" name="file1">
+        <input type="file" id="file11" name="file1" accept=".glb">
             <!-- <input type="button" value="送信" id="submit-button"> -->
         <button type="button" id="submit-button1">3Dモデルアップロード</button>
             <!-- <input type="file" name="file2">
             <button type="button" id="submit-button">空間アップロード</button></p>  -->
     </form>
     <form method="post" action="http://localhost/index.php" enctype="multipart/form-data" id="form2">
-        <input type="file" name="file2">
+        <input type="file"  id="file22" name="file2" accept=".glb">
             <!-- <input type="button" value="送信" id="submit-button"> -->
         <button type="button" id="submit-button2">空間アップロード</button>
             <!-- <input type="file" name="file2">
@@ -51,6 +52,17 @@
         const submitButton1 = document.getElementById("submit-button1")
         const submitButton2 = document.getElementById("submit-button2")
 
+        var filename1 = "upload.glb";
+        const fileform1 = document.getElementById("file11");
+        // const fileform2 = document.getElementById("file2");
+        // const fileInput1 = fileform1.files[0];
+        // const fileInput2 = fileform2.files[0];
+        // console.log(fileInput1)
+        // console.log(fileform2)
+        fileform1.addEventListener("change", function(e) {
+ console.log(e.target.files[0].name)
+},false);
+console.log(filename1)
 submitButton1.onclick = () => {
   const formData = new FormData(form1)
   const action = form1.getAttribute("action")
@@ -76,8 +88,7 @@ submitButton2.onclick = () => {
     <!-- Babylon.jsとSceneLoaderの読み込み-->
     <script src="https://preview.babylonjs.com/babylon.js"></script>
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-
     <!-- これから作成するscript.jsの読み込み-->
-    <script src="js/script.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>

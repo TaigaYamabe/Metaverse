@@ -17,7 +17,7 @@ if( !empty($_FILES['file1']['tmp_name']) && is_uploaded_file($_FILES['file1']['t
 	// 	echo 'アップロードされたファイルの保存に失敗しました。';
 	// }
 
-	if( move_uploaded_file( $_FILES['file1']['tmp_name'], $path.'upload.obj') ) {
+	if( move_uploaded_file( $_FILES['file1']['tmp_name'], $path."upload.glb") ) {
 		echo 'アップロードされたファイルを保存しました。';
 	} else {
 		echo 'アップロードされたファイルの保存に失敗しました。';
@@ -25,7 +25,8 @@ if( !empty($_FILES['file1']['tmp_name']) && is_uploaded_file($_FILES['file1']['t
 }
 if( !empty($_FILES['file2']['tmp_name']) && is_uploaded_file($_FILES['file2']['tmp_name']) ) {
 	// ファイルを指定したパスへ保存する
-	if( move_uploaded_file( $_FILES['file2']['tmp_name'], $path.'space.glb') ) {
+	$name = $_FILES['file2']['name'];
+	if( move_uploaded_file( $_FILES['file2']['tmp_name'], $path.$name) ) {
 		echo 'アップロードされたファイルを保存しました。';
 	} else {
 		echo 'アップロードされたファイルの保存に失敗しました。';

@@ -1,17 +1,28 @@
+let data = new BABYLON.Vector3(0, 0, 0);
+var obj ={};
 function main() {
+//   const parameter = {
+//     name:  'ロボ・ロボお',
+//     add: '神聖グンマー帝国🔥',
+//     telephone: '090-1212-1212',
+// };
     const canvas = document.getElementById("renderCanvas");
   
     const engine = new BABYLON.Engine(canvas);
   
+    var pos =new BABYLON.Vector3(1, 0, 0);
+    // console.log(pos.x)
     function createScene() {
   
+      console.log(pos);
       // 新しいシーンオブジェクトを作成
       const scene = new BABYLON.Scene(engine);
       //scene.debugLayer.show();
-      var obj ={};
+      
       var obj_mat ={};
       var map ={}; //object for multiple key presses
       var space ={};
+      //let hamburger = "<?php echo $php_string; ?>";
       
       //キー入力を受け付ける宣言
       //キー入力があるたびに、map変数の値がセットされる
@@ -66,15 +77,18 @@ function main() {
       //   glbMesh.scaling = new BABYLON.Vector3(100, 100, 100);
       // });
 
-     BABYLON.SceneLoader.LoadAssetContainer("./Models/", "upload.glb", scene,
+    //  BABYLON.SceneLoader.LoadAssetContainer("./Models/", fileInput1.name, scene,
+    BABYLON.SceneLoader.LoadAssetContainer("./Models/", "upload.glb", scene,
+     //BABYLON.SceneLoader.LoadAssetContainer("./Models/", php, scene,
       function(container){
         const glbMesh = container.meshes[1];
         obj = glbMesh;
         obj_mat = glbMesh.material;
         scene.addMesh(glbMesh);
         scene.addMaterial(glbMesh.material);
-        glbMesh.position = new BABYLON.Vector3(0, 20, 0);
+        glbMesh.position = pos.add(new BABYLON.Vector3(0, 20, 0));
         glbMesh.scaling = new BABYLON.Vector3(10, 10, 10);
+        //console.log(container);
         // scene.activeCamera = null;
         // scene.createDefaultCameraOrLight(true);
         // scene.activeCamera.attachControl(canvas, false);
@@ -82,7 +96,7 @@ function main() {
       );
 
      
-
+      
       BABYLON.SceneLoader.LoadAssetContainer("./Models/", "space.glb", scene,
       function(container){
         const glbMesh = container.meshes[1];
@@ -91,7 +105,7 @@ function main() {
         scene.addMaterial(glbMesh.material);
         glbMesh.position = new BABYLON.Vector3(0, 0, 0);
         glbMesh.scaling = new BABYLON.Vector3(10, 10, 10);
-
+        //console.log(scene);
         // scene.activeCamera = null;
         // scene.createDefaultCameraOrLight(true);
         // scene.activeCamera.attachControl(canvas, false);
@@ -99,6 +113,10 @@ function main() {
       );
      
 
+      scene.registerBeforeRender(function () {
+        const deltaTime = engine.getDeltaTime() / 1000;
+        //console.log(deltaTime)
+ });
 
       // const box = BABYLON.MeshBuilder.CreateBox("box", {});
       // box.scaling = new BABYLON.Vector3(0.2, 0.15, 0.3);
@@ -110,7 +128,9 @@ function main() {
       // pickでポインタ情報を取得する
       var pickResult = scene.pick(scene.pointerX, scene.pointerY);
       // もしクリックが壁にhitした場合、ぶつかった画像の位置を更新する
-      if (pickResult.hit) {
+      if(pickResult.pickedMesh != space){
+
+        if (pickResult.hit) {
 
           obj.material = obj_mat;
           obj =pickResult.pickedMesh;
@@ -120,11 +140,11 @@ function main() {
           // pickResult.pickedMesh.emissiveColor = new BABYLON.Color3(1, 0, 0);
           // pickResult.pickedMesh.diffuseColor = new BABYLON.Color3(1, 0, 0);
 
-          if(pickResult.pickedMesh != space){
-          pickResult.pickedMesh.material = red;
-          }
+          //pickResult.pickedMesh.material = red;
+          
   
         
+        }
       }
       //キーボード入力
       scene.registerAfterRender(function() {	
@@ -169,8 +189,9 @@ function main() {
         if((map["5"])){
           obj.dispose()
         }
-       
-
+        //console.log(obj.position);
+        data = obj.position;
+     
         
         }
     });
@@ -179,8 +200,24 @@ function main() {
     }
   
     const scene = createScene();
-  
+
+    
+   
     engine.runRenderLoop(() => {
+      //console.log(obj.position);
+      const parameter = {
+        name:  data.x,
+        add: 0,
+        telephone: 0,
+      };
+      //console.log(data.x);
+      // fetch('../3D.php', 
+      //     {
+      //         method: 'POST', // HTTP-メソッドを指定
+      //         headers: { 'Content-Type': 'application/json' }, // jsonを指定
+      //         body: JSON.stringify(parameter),
+      //     }
+      // ) 
       scene.render();
     });
   
