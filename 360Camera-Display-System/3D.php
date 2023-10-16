@@ -1,6 +1,3 @@
-<?php
-     $a = 10;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +14,8 @@
         }
 
         #renderCanvas {
-            width   : 80%;
-            height  : 80%;
+            width   : 100%;
+            height  : 100%;
             touch-action: none;
         }
     </style>
@@ -28,19 +25,15 @@
     <!-- 
     actionはindex.phpのWeb アクセス用 URL
     -->
-    <form method="post" action="index.php" enctype="multipart/form-data" id="form1">
-        <input type="file" name="file1">
-            <!-- <input type="button" value="送信" id="submit-button"> -->
-        <button type="button" id="submit-button1">3Dモデルアップロード</button>
-            <!-- <input type="file" name="file2">
-            <button type="button" id="submit-button">空間アップロード</button></p>  -->
+    <form enctype="multipart/form-data"  action="index.php" method="POST">
+        <input type="file" name="file1" value="value" />
+        <input type="submit" value="3Dモデルアップロード" />
     </form>
-    <form method="post" action="index.php" enctype="multipart/form-data" id="form2">
-        <input type="file" name="file2">
-            <!-- <input type="button" value="送信" id="submit-button"> -->
-        <button type="button" id="submit-button2">空間アップロード</button>
-            <!-- <input type="file" name="file2">
-            <button type="button" id="submit-button">空間アップロード</button></p>  -->
+
+
+    <form enctype="multipart/form-data"  action="index.php" method="POST">
+        <input type="file" name="file2" value="value" />
+        <input type="submit" value="空間アップロード" />
     </form>
     <!-- <form method="post" action="http://localhost/index2.php" enctype="multipart/form-data" id="form">
         <input type="file" name="file2">
@@ -49,61 +42,100 @@
     <canvas id="renderCanvas"></canvas>
 </header>
     <script>
-        const form1 = document.getElementById("form1")
-        const form2 = document.getElementById("form2")
-        const submitButton1 = document.getElementById("submit-button1")
-        const submitButton2 = document.getElementById("submit-button2")
+//         const form1 = document.getElementById("form1")
+//         const form2 = document.getElementById("form2")
+//         const submitButton1 = document.getElementById("submit-button1")
+//         const submitButton2 = document.getElementById("submit-button2")
 
-submitButton1.onclick = () => {
-  const formData = new FormData(form1)
-  const action = form1.getAttribute("action")
-  const options = {
-    method: 'POST',
-    body: formData,
-  }
-  fetch(action, options).then((e) => {
-  })
-}
-submitButton2.onclick = () => {
-  const formData = new FormData(form2)
-  const action = form2.getAttribute("action")
-  const options = {
-    method: 'POST',
-    body: formData,
-  }
-  fetch(action, options).then((e) => {
-  })
-}
+// submitButton1.onclick = () => {
+//   const formData = new FormData(form1)
+//   const action = form1.getAttribute("action")
+//   const options = {
+//     method: 'POST',
+//     body: formData,
+//   }
+//   fetch(action, options).then((e) => {
+//   })
+// }
+// submitButton2.onclick = () => {
+//   const formData = new FormData(form2)
+//   const action = form2.getAttribute("action")
+//   const options = {
+//     method: 'POST',
+//     body: formData,
+//   }
+//   fetch(action, options).then((e) => {
+//   })
+// }
 
     </script>
 
-<?php
-if(empty($_COOKIE['wepicksCookieData'])){
+<!-- ?php
+if(empty($_COOKIE['Cookie0'])){
  echo 'ブラウザを更新して下さい。';
+//  $sample0 = 0;
+//  $sample1 = "20";
+//  $sample2 = 0;
+// $sample = 0;
 }else{
- echo '$_COOKIE[\'wepicksCookieData\']の出力:'.$_COOKIE['wepicksCookieData']."<br/>\n";
+   // echo 'x:'.$_COOKIE['Cookie0']."<br/>\n".'y:'.$_COOKIE['Cookie1']."<br/>\n".'z:'.$_COOKIE['Cookie2']."<br/>\n";
+ //echo '出力:'.$_COOKIE['Cookie0']."<br/>\n".$_COOKIE['Cookie1']."<br/>\n".$_COOKIE['Cookie2']."<br/>\n";
+ //$serializedArray= $_COOKIE['wepicksCookieData'];
+ //$sample = unserialize($serializedArray);
+//  $sample0 = $_COOKIE['Cookie0'];
+//  $sample1 = $_COOKIE['Cookie1'];
+//  $sample2 = $_COOKIE['Cookie2'];
+//  $sample = $_COOKIE['Cookie0'];
 }
-?>
+?-->
+
     <!-- Babylon.jsとSceneLoaderの読み込み-->
     <script src="https://preview.babylonjs.com/babylon.js"></script>
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- これから作成するscript.jsの読み込み-->
-    <script type="text/javascript" src=js/script.js></script>
+ 
     <?php
-     $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
-     $data = json_decode($raw); // json形式をphp変数に変換
-     //header("Content-type: text/plain; charset=UTF-8");
-     if(isset($data->name)){
-     setcookie('wepicksCookieData',$data->name);
-     }
+// CSVファイルのパス
+$csvFilePath = './csv/example.csv';
+
+// 配列でデータを保持するための変数
+$phpArray = array();
+
+// CSVファイルを読み込む
+if (($handle = fopen($csvFilePath, "r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        // CSVの各行を配列に変換して追加
+        $phpArray[] = $data;
+    }
+    fclose($handle);
+}
+
+// 配列の内容を表示してテスト
+//var_dump($phpArray);
 ?>
+
+<script>
+var jsArray = <?php echo json_encode($phpArray); ?>;
+</script>
+    <script type="text/javascript" src=js/script.js></script>
+
+    <?php
+    //  $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
+    //  $data = json_decode($raw, true); // json形式をphp変数に変換
+     //header("Content-type: text/plain; charset=UTF-8");
+    //  foreach ($data as $item) {
+    //     echo $item . "<br>";
+    // }
+
+    //  if(isset($data[0])){
+    //  setcookie('Cookie0',$data[0]);
+    //  setcookie('Cookie1',$data[1]);
+    //  setcookie('Cookie2',$data[2]);
+    //  }
+    ?>
+
     <button onclick="location.href='3D.php'">更新</button>
-    
-     
-    <form id="contactForm" name="contactForm" method="post">
-        <p class="more"><input id="send" type="submit" value="送る"></p>
-    </form>
-    
 </body>
 </html>
